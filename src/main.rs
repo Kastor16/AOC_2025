@@ -6,43 +6,49 @@ fn main() {
     println!("Contents of Input:");
     
     let mut dial = 50;
+    let mut prev_dial:i32;
     let mut zero_count = 0;
+    
+    println!("Dial: {}",dial);  
     for x in input.iter() {      
         let line=&x[1..];
         let mut amount: i32 = line.parse().unwrap();
-        
-       
+        prev_dial = dial;
 
         if amount > 99 {
+           zero_count += amount / 100;
+           println!("Zero Count: {}",zero_count);
            let tmp = &x[x.chars().count()-2..];
            amount = tmp.parse().unwrap()
         }
-
-
-        if x.starts_with("L"){  
-            
+        if x.starts_with("L"){         
             dial -= amount;
             if dial < 0{
-                dial += 100
-            }
-    
+                dial += 100;
+                if prev_dial != 0 && dial != 0{
+                    zero_count += 1;  
+                }              
+            }  
         }else{
             dial += amount; 
             if dial > 99 {
-                dial -= 100
-            }         
-
-        }        
-        if dial == 0{
-            zero_count +=1;
+                dial -= 100;
+                if prev_dial != 0 && dial != 0 {
+                    zero_count += 1;
+                }
+            } 
         }
-        println!("{}",x);
-        println!("{}",dial);  
+        if dial == 0 {
+            zero_count += 1;
+        }         
+        
+        println!("Prev Dial: {} Turn: {} Dial: {}",prev_dial,x,dial);        
+        println!("Zero Count: {}",zero_count);
 
     }
     println!("{}",zero_count);
-
-
+  
+    
 }
 
 fn read_lines(filename: &str) -> Vec<String> {
