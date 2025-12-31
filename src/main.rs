@@ -1,7 +1,7 @@
 use std::fs::read_to_string;
 fn main() {
     println!("AOC 2025");
-    let input = read_lines("input_1.txt");
+    let input = read_lines("inputs/input_1.txt");
     
     println!("Contents of Input:");
     
